@@ -2,7 +2,7 @@ import { Handler } from 'aws-lambda';
 import { LambdaInterface, AsyncHandler, SyncHandler } from '@aws-lambda-powertools/commons';
 import { ConfigServiceInterface } from '../config';
 import { MetricUnit } from './MetricUnit';
-import { MetricResolution } from './MetricResolution';
+// import { MetricResolution } from './MetricResolution';
 
 type Dimensions = Record<string, string>;
 
@@ -61,7 +61,7 @@ type StoredMetric = {
   name: string
   unit: MetricUnit
   value: number | number[]
-  resolution: MetricResolution
+  // resolution: MetricResolution
 };
 
 type StoredMetrics = Record<string, StoredMetric>;
@@ -69,7 +69,7 @@ type StoredMetrics = Record<string, StoredMetric>;
 type MetricDefinition = {
   Name: string
   Unit: MetricUnit
-  StorageResolution?: MetricResolution
+  // StorageResolution?: MetricResolution
 }; 
 
 export { MetricsOptions, Dimensions, EmfOutput, HandlerMethodDecorator, ExtraOptions, StoredMetrics, StoredMetric, MetricDefinition };

@@ -211,8 +211,12 @@ class Metrics extends Utility implements MetricsInterface {
    * @param value - The metric value
    * @param resolution - The metric resolution
    */
-  public addMetric(name: string, unit: MetricUnit, value: number, resolution: MetricResolution = MetricResolution.Standard): void {
-    this.storeMetric(name, unit, value, resolution);
+  public addMetric(name: string, unit: MetricUnit, value: number, 
+    // resolution: MetricResolution = MetricResolution.Standard
+  ): void {
+    this.storeMetric(name, unit, value, 
+      // resolution
+    );
     if (this.isSingleMetric) this.publishStoredMetrics();
   }
 
@@ -391,9 +395,9 @@ class Metrics extends Utility implements MetricsInterface {
     ).map((metricDefinition) => ({
       Name: metricDefinition.name,
       Unit: metricDefinition.unit,
-      ...(metricDefinition.resolution === MetricResolution.High
-        ? { StorageResolution: metricDefinition.resolution }
-        : {}),
+      // ...(metricDefinition.resolution === MetricResolution.High
+      //   ? { StorageResolution: metricDefinition.resolution }
+      //   : {}),
     }));
 
     if (metricDefinitions.length === 0 && this.shouldThrowOnEmptyMetrics) {
@@ -638,7 +642,7 @@ class Metrics extends Utility implements MetricsInterface {
     name: string,
     unit: MetricUnit,
     value: number,
-    resolution: MetricResolution,
+    // resolution: MetricResolution,
   ): void {    
     if (Object.keys(this.storedMetrics).length >= MAX_METRICS_SIZE) {
       this.publishStoredMetrics();
@@ -649,7 +653,7 @@ class Metrics extends Utility implements MetricsInterface {
         unit,
         value,
         name, 
-        resolution    
+        // resolution    
       };
        
     } else {
