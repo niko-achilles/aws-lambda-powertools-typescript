@@ -27,10 +27,10 @@ module.exports = {
   ],
   'coverageThreshold': {
     'global': {
-      'statements': 95,
-      'branches': 95,
+      'statements': 100,
+      'branches': 100,
       'functions': 95,
-      'lines': 95,
+      'lines': 100,
     },
   },
   'coverageReporters': [

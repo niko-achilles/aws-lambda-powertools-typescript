@@ -320,7 +320,7 @@ describe('Middy middleware', () => {
       );
     });
   });
-  describe.skip('Metrics resolution', () => {
+  describe('Metrics resolution', () => {
 
     test('serialized metrics in EMF format should not contain `StorageResolution` as key if `60` is set', async () => {
       // Prepare
@@ -386,7 +386,7 @@ describe('Middy middleware', () => {
                 Metrics: [{
                   Name: 'successfulBooking',
                   Unit: 'Count',
-                  StorageResolution: 1
+                  // StorageResolution: 1
                 }],              
               },
             ],

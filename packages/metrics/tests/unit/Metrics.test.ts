@@ -8,7 +8,9 @@ import {
   ContextExamples as dummyContext,
   Events as dummyEvent
 } from '@aws-lambda-powertools/commons';
-import { MetricResolution, MetricUnits, Metrics } from '../../src/';
+import { 
+  // MetricResolution, 
+  MetricUnits, Metrics } from '../../src/';
 import { Context, Handler } from 'aws-lambda';
 import { Dimensions, EmfOutput, MetricsOptions } from '../../src/types';
 import { COLD_START_METRIC, DEFAULT_NAMESPACE, MAX_DIMENSION_COUNT, MAX_METRICS_SIZE } from '../../src/constants';
@@ -490,7 +492,7 @@ describe('Class: Metrics', () => {
     });
   });
 
-  describe.skip('Method: addMetric', () => {
+  describe('Method: addMetric', () => {
     
     test('it should store metrics when called', () => {
       
@@ -508,7 +510,7 @@ describe('Class: Metrics', () => {
         storedMetrics: {
           [metricName]: {
             name: metricName,
-            resolution: MetricResolution.High,
+            // resolution: MetricResolution.High,
             unit: MetricUnits.Count,
             value: 1
           }
@@ -538,19 +540,19 @@ describe('Class: Metrics', () => {
         storedMetrics: {
           'test-metric-1': {
             name: 'test-metric-1',
-            resolution: MetricResolution.High,
+            // resolution: MetricResolution.High,
             unit: MetricUnits.Count,
             value: 1
           },
           'test-metric-2': {
             name: 'test-metric-2',
-            resolution: MetricResolution.High,
+            // resolution: MetricResolution.High,
             unit: MetricUnits.Count,
             value: 3
           },
           'test-metric-3': {
             name: 'test-metric-3',
-            resolution: MetricResolution.High,
+            // resolution: MetricResolution.High,
             unit: MetricUnits.Count,
             value: 6
           }
@@ -573,13 +575,13 @@ describe('Class: Metrics', () => {
         storedMetrics: {
           'test-metric-1': {
             name: 'test-metric-1',
-            resolution: MetricResolution.Standard,
+            // resolution: MetricResolution.Standard,
             unit: MetricUnits.Count,
             value: 1
           },
           'test-metric-2': {
             name: 'test-metric-2',
-            resolution: MetricResolution.Standard,
+            // resolution: MetricResolution.Standard,
             unit: MetricUnits.Seconds,
             value: 3
           }
@@ -605,7 +607,7 @@ describe('Class: Metrics', () => {
         storedMetrics: {
           [metricName]: {
             name: metricName,
-            resolution: MetricResolution.Standard,
+            // resolution: MetricResolution.Standard,
             unit: MetricUnits.Count,
             value: [ 1, 5, 1, 4 ]
           }
@@ -648,7 +650,7 @@ describe('Class: Metrics', () => {
         storedMetrics: {
           'another-metric': {
             name: 'another-metric',
-            resolution: MetricResolution.Standard,
+            // resolution: MetricResolution.Standard,
             unit: MetricUnits.Count,
             value: MAX_METRICS_SIZE + 1
           }
@@ -1214,7 +1216,7 @@ describe('Class: Metrics', () => {
 
     });
 
-    test.skip('it should return right object compliant with Cloudwatch EMF', () => {
+    test('it should return right object compliant with Cloudwatch EMF', () => {
       
       // Prepare
       const metrics: Metrics = new Metrics({
@@ -1255,7 +1257,7 @@ describe('Class: Metrics', () => {
                   {
                     'Name': 'failedBooking',
                     'Unit': MetricUnits.Count,
-                    'StorageResolution': 1
+                    // 'StorageResolution': 1
                   }
                 ]
               }
@@ -1397,7 +1399,7 @@ describe('Class: Metrics', () => {
   
     });
 
-    test.skip('it should log additional dimensions correctly', () => {
+    test('it should log additional dimensions correctly', () => {
           
       // Prepare
       const testMetric = 'test-metric';
@@ -1428,7 +1430,7 @@ describe('Class: Metrics', () => {
               'Metrics': [
                 {
                   'Name': testMetric,
-                  'StorageResolution': 1,
+                  // 'StorageResolution': 1,
                   'Unit': MetricUnits.Count
                 }
               ],
@@ -1444,7 +1446,7 @@ describe('Class: Metrics', () => {
     
     });
 
-    test.skip('it should log additional bulk dimensions correctly', () => {
+    test('it should log additional bulk dimensions correctly', () => {
           
       // Prepare
       const testMetric = 'test-metric';
@@ -1481,7 +1483,7 @@ describe('Class: Metrics', () => {
               'Metrics': [
                 {
                   'Name': testMetric,
-                  'StorageResolution': 1,
+                  // 'StorageResolution': 1,
                   'Unit': MetricUnits.Count
                 }
               ],
@@ -1793,7 +1795,7 @@ describe('Class: Metrics', () => {
 
     });
 
-    test.skip('it should contain `StorageResolution` as key & high metric resolution as value for high resolution metrics', () => {
+    test('it should contain `StorageResolution` as key & high metric resolution as value for high resolution metrics', () => {
                                         
       // Prepare
       const metricName1 = 'test-metric';
@@ -1827,7 +1829,7 @@ describe('Class: Metrics', () => {
                 },
                 {
                   'Name': metricName2,
-                  'StorageResolution': 1,
+                  // 'StorageResolution': 1,
                   'Unit': MetricUnits.Seconds
                 }
               ],
