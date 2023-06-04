@@ -9,8 +9,8 @@ import {
   Events as dummyEvent
 } from '@aws-lambda-powertools/commons';
 import { 
-  // MetricResolution, 
-  MetricUnits, Metrics } from '../../src/';
+  MetricResolution, 
+  MetricUnits, Metrics, MetricsInterface } from '../../src/';
 import { Context, Handler } from 'aws-lambda';
 import { Dimensions, EmfOutput, MetricsOptions } from '../../src/types';
 import { COLD_START_METRIC, DEFAULT_NAMESPACE, MAX_DIMENSION_COUNT, MAX_METRICS_SIZE } from '../../src/constants';
@@ -502,7 +502,7 @@ describe('Class: Metrics', () => {
 
       // Act
       metrics.addMetric(metricName, MetricUnits.Count, 1, 
-        // MetricResolution.High
+        MetricResolution.High
       );
 
       // Assess
@@ -510,7 +510,7 @@ describe('Class: Metrics', () => {
         storedMetrics: {
           [metricName]: {
             name: metricName,
-            // resolution: MetricResolution.High,
+            resolution: MetricResolution.High,
             unit: MetricUnits.Count,
             value: 1
           }
@@ -526,13 +526,13 @@ describe('Class: Metrics', () => {
 
       // Act
       metrics.addMetric('test-metric-1', MetricUnits.Count, 1, 
-      // MetricResolution.High
+        MetricResolution.High
       );
       metrics.addMetric('test-metric-2', MetricUnits.Count, 3, 
-      // MetricResolution.High
+        MetricResolution.High
       );
       metrics.addMetric('test-metric-3', MetricUnits.Count, 6, 
-      // MetricResolution.High
+        MetricResolution.High
       );
 
       // Assess
@@ -540,19 +540,19 @@ describe('Class: Metrics', () => {
         storedMetrics: {
           'test-metric-1': {
             name: 'test-metric-1',
-            // resolution: MetricResolution.High,
+            resolution: MetricResolution.High,
             unit: MetricUnits.Count,
             value: 1
           },
           'test-metric-2': {
             name: 'test-metric-2',
-            // resolution: MetricResolution.High,
+            resolution: MetricResolution.High,
             unit: MetricUnits.Count,
             value: 3
           },
           'test-metric-3': {
             name: 'test-metric-3',
-            // resolution: MetricResolution.High,
+            resolution: MetricResolution.High,
             unit: MetricUnits.Count,
             value: 6
           }
@@ -575,13 +575,13 @@ describe('Class: Metrics', () => {
         storedMetrics: {
           'test-metric-1': {
             name: 'test-metric-1',
-            // resolution: MetricResolution.Standard,
+            resolution: MetricResolution.Standard,
             unit: MetricUnits.Count,
             value: 1
           },
           'test-metric-2': {
             name: 'test-metric-2',
-            // resolution: MetricResolution.Standard,
+            resolution: MetricResolution.Standard,
             unit: MetricUnits.Seconds,
             value: 3
           }
@@ -607,7 +607,7 @@ describe('Class: Metrics', () => {
         storedMetrics: {
           [metricName]: {
             name: metricName,
-            // resolution: MetricResolution.Standard,
+            resolution: MetricResolution.Standard,
             unit: MetricUnits.Count,
             value: [ 1, 5, 1, 4 ]
           }
@@ -650,7 +650,7 @@ describe('Class: Metrics', () => {
         storedMetrics: {
           'another-metric': {
             name: 'another-metric',
-            // resolution: MetricResolution.Standard,
+            resolution: MetricResolution.Standard,
             unit: MetricUnits.Count,
             value: MAX_METRICS_SIZE + 1
           }
@@ -1231,7 +1231,7 @@ describe('Class: Metrics', () => {
       metrics.addMetric('successfulBooking', MetricUnits.Count, 1);
       metrics.addMetric('successfulBooking', MetricUnits.Count, 3);
       metrics.addMetric('failedBooking', MetricUnits.Count, 1, 
-      // MetricResolution.High
+        MetricResolution.High
       );
       const loggedData = metrics.serializeMetrics();
 
@@ -1257,7 +1257,7 @@ describe('Class: Metrics', () => {
                   {
                     'Name': 'failedBooking',
                     'Unit': MetricUnits.Count,
-                    // 'StorageResolution': 1
+                    'StorageResolution': 1
                   }
                 ]
               }
@@ -1408,7 +1408,7 @@ describe('Class: Metrics', () => {
     
       // Act
       metrics.addMetric('test-metric', MetricUnits.Count, 10, 
-      // MetricResolution.High
+        MetricResolution.High
       );
       metrics.addDimension(additionalDimension.name, additionalDimension.value);
       const loggedData = metrics.serializeMetrics();
@@ -1430,7 +1430,7 @@ describe('Class: Metrics', () => {
               'Metrics': [
                 {
                   'Name': testMetric,
-                  // 'StorageResolution': 1,
+                  'StorageResolution': 1,
                   'Unit': MetricUnits.Count
                 }
               ],
@@ -1458,7 +1458,7 @@ describe('Class: Metrics', () => {
     
       // Act
       metrics.addMetric(testMetric, MetricUnits.Count, 10, 
-        // MetricResolution.High
+        MetricResolution.High
       );
       metrics.addDimensions(additionalDimensions);
       const loggedData = metrics.serializeMetrics();
@@ -1483,7 +1483,7 @@ describe('Class: Metrics', () => {
               'Metrics': [
                 {
                   'Name': testMetric,
-                  // 'StorageResolution': 1,
+                  'StorageResolution': 1,
                   'Unit': MetricUnits.Count
                 }
               ],
@@ -1768,7 +1768,7 @@ describe('Class: Metrics', () => {
                                 
       // Assess
       expect(loggedData._aws.CloudWatchMetrics[0].Metrics.length).toBe(1);
-      // expect(loggedData._aws.CloudWatchMetrics[0].Metrics[0].StorageResolution).toBeUndefined();
+      expect(loggedData._aws.CloudWatchMetrics[0].Metrics[0].StorageResolution).toBeUndefined();
       expect(loggedData).toEqual({
         '_aws': {
           'CloudWatchMetrics': [
@@ -1800,19 +1800,19 @@ describe('Class: Metrics', () => {
       // Prepare
       const metricName1 = 'test-metric';
       const metricName2 = 'test-metric-2';
-      const metrics: Metrics = new Metrics({ namespace: TEST_NAMESPACE });
+      const metrics: MetricsInterface = new Metrics({ namespace: TEST_NAMESPACE });
                                 
       // Act
       metrics.addMetric(metricName1, MetricUnits.Count, 10);
       metrics.addMetric(metricName2, MetricUnits.Seconds, 10, 
-        // MetricResolution.High
+        MetricResolution.High
       );
       const loggedData = metrics.serializeMetrics();
                                 
       // Assess
       expect(loggedData._aws.CloudWatchMetrics[0].Metrics.length).toBe(2);
-      // expect(loggedData._aws.CloudWatchMetrics[0].Metrics[0].StorageResolution).toBeUndefined();
-      // expect(loggedData._aws.CloudWatchMetrics[0].Metrics[1].StorageResolution).toEqual(MetricResolution.High);
+      expect(loggedData._aws.CloudWatchMetrics[0].Metrics[0].StorageResolution).toBeUndefined();
+      expect(loggedData._aws.CloudWatchMetrics[0].Metrics[1].StorageResolution).toEqual(MetricResolution.High);
       expect(loggedData).toEqual({
         '_aws': {
           'CloudWatchMetrics': [
@@ -1829,7 +1829,7 @@ describe('Class: Metrics', () => {
                 },
                 {
                   'Name': metricName2,
-                  // 'StorageResolution': 1,
+                  'StorageResolution': 1,
                   'Unit': MetricUnits.Seconds
                 }
               ],

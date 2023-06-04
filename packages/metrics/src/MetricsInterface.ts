@@ -1,7 +1,7 @@
 import { Metrics } from './Metrics';
 import {
   MetricUnit,
-  // MetricResolution,
+  MetricResolution,
   EmfOutput,
   HandlerMethodDecorator,
   Dimensions,
@@ -13,7 +13,7 @@ interface MetricsInterface {
   addDimensions(dimensions: {[key: string]: string}): void
   addMetadata(key: string, value: string): void
   addMetric(name: string, unit: MetricUnit, value: number, 
-  // resolution?: MetricResolution
+    resolution?: MetricResolution
   ): void
   clearDimensions(): void
   clearMetadata(): void
